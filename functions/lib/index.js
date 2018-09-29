@@ -10,9 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const functions = require("firebase-functions");
 const node_fetch_1 = require("node-fetch");
-const API = `https://www.reddit.com/user/tehrash/m/work.json`;
 exports.listings = functions.https.onRequest((_, res) => __awaiter(this, void 0, void 0, function* () {
-    const data = (yield (yield node_fetch_1.default(API)).json()).data.children;
-    res.send(data);
+    const API = `https://www.reddit.com/user/tehrash/m/work.json`;
+    const data = (yield (yield node_fetch_1.default(API)).json()).data.children.map(r => r.data);
+    const posts = data.map(post => ({
+        title: post.title,
+        author: post.author,
+        points: post.ups - post.downs,
+        category: post.subreddit
+    }));
+    res.send(posts);
 }));
 //# sourceMappingURL=index.js.map

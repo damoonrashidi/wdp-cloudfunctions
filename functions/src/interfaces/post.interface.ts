@@ -225,21 +225,3 @@ export interface Post {
     media: Media;
     is_video: boolean;
 }
-
-export interface Child {
-    kind: string;
-    data: Post;
-}
-
-export interface Data {
-    modhash: string;
-    dist: number;
-    children: Child[];
-    after: string;
-    before?: any;
-}
-
-export interface RootObject {
-    kind: string;
-    data: Data;
-}
