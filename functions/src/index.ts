@@ -7,11 +7,12 @@ export const listings = functions.https.onRequest(async (_, res) => {
   const data: Post[] = (await (await fetch(API)).json()).data.children.map(
     r => r.data
   );
-  const posts = data.map(post => ({
+  const posts = data.map((post: Post) => ({
     title: post.title,
     author: post.author,
     points: post.ups - post.downs,
-    category: post.subreddit
+    category: post.subreddit,
+    url: post.url,
   }));
   res.send(posts);
 });
